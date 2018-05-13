@@ -8,10 +8,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-            <?php echo $this->Html->link($this->Html->image("logo.png", ["alt" => "Logo", 'class' => 'media-object img-responsive', 'style' => 'display: inline-block; vertical-align: middle; line-height:normal; padding-top: 10%;' , 'width' => 50]),
+            <?php echo $this->Html->link($this->Html->image("logo4.png", ["alt" => "Logo", 'class' => 'media-object img-responsive', 'style' => 'display: inline-block; vertical-align: middle; line-height:normal; padding-top: 6%;' , 'width' => 200]),
                       ['controller' => 'users', 'action' => 'start'],
                       ['escape' => false, 'title' => 'PARKING NOTIFIER']
-                  ). ' PARKING NOTIFIER';
+                  );
             ?>
         </div>
 
@@ -85,7 +85,16 @@
                 
               </ul>
             </li>
-            <li><?= $this->Html->link('Reportes', array('controller' => 'Reporte', 'action' => 'index')); ?></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><?= $this->Html->link('Empleados', array('controller' => 'Reporte', 'action' => 'index')); ?></li>
+                <li><?= $this->Html->link('Notificaciones', array('controller' => 'Reporte', 'action' => 'notificaciones')); ?></li>
+                <li><?= $this->Html->link('Ingresos', array('controller' => 'Reporte', 'action' => 'ingresos')); ?></li>
+                <li><?= $this->Html->link('Vehículos', array('controller' => 'Reporte', 'action' => 'Vehiculos')); ?></li>
+                
+              </ul>
+            </li>
           <?php endif; ?>
 
 
@@ -140,6 +149,7 @@
           </ul>
           <?php else: ?>
             <ul class="nav navbar-nav navbar-right">
+              <li><?= $this->Html->link('Inicio', array('controller' => 'Users', 'action' => 'start')); ?></li>
               <li><?= $this->Html->link('Inicia Sesión', array('controller' => 'Users', 'action' => 'login')); ?></li>
               <li><?= $this->Html->link('Registrate', array('controller' => 'Users', 'action' => 'add2')); ?></li>
             </ul>

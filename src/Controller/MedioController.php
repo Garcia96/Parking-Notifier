@@ -144,93 +144,76 @@ class MedioController extends AppController
         $medios = $this->Medio->find('all')->where(['id' => 1]);
         $user = TableRegistry::get('Users')->get($this->Auth->user('id'));
         if ($this->request->is('post')) {
-            $idmedio = $this->request->getData('id');
-            $medio = $this->Medio->get($idmedio);
-
-            $user_medio = TableRegistry::get('users_medio');
-            $usermedio = TableRegistry::get('users_medio')->find()->where(['medio_id' => $medio->id, 'user_id' => $user->id])->first();
-
-            if($usermedio){
-                if($usermedio->active == 0){
-                    $user_medio->query()->update()
-                    ->set(['active' => 1])
-                    ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
+            if(isset($_POST['phone'])){
+                $numero = $this->request->getData('phone');
+                $users = TableRegistry::get('Users');
+                $query = $users->query()->update()
+                    ->set(['phone' => $numero])
+                    ->where(['id' => $this->Auth->user('id')])
                     ->execute();
-                    $this->Flash->success(__('El medio '.$medio->nombre.' ha sido seleccionado satisfactoriamente.'));
+
+                $idmedio = 3;
+                $medio = $this->Medio->get($idmedio);
+
+                $user_medio = TableRegistry::get('users_medio');
+                $usermedio = TableRegistry::get('users_medio')->find()->where(['medio_id' => $medio->id, 'user_id' => $user->id])->first();
+
+                if($usermedio){
+                    if($usermedio->active == 0){
+                        $user_medio->query()->update()
+                        ->set(['active' => 1])
+                        ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
+                        ->execute();
+                        $this->Flash->success(__('El medio '.$medio->nombre.' ha sido seleccionado satisfactoriamente.'));
+                    }else{
+                        $user_medio->query()->update()
+                        ->set(['active' => 0])
+                        ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
+                        ->execute();
+                        $this->Flash->success(__('El medio '.$medio->nombre.' ha sido desactivado satisfactoriamente.'));
+                    }
                 }else{
+                    $this->Medio->Users->link($medio, [$user]);
                     $user_medio->query()->update()
-                    ->set(['active' => 0])
-                    ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
-                    ->execute();
-                    $this->Flash->success(__('El medio '.$medio->nombre.' ha sido desactivado satisfactoriamente.'));
+                        ->set(['active' => 1])
+                        ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
+                        ->execute();
+                    $this->Flash->success(__('El medio'.$medio->nombre.' ha sido seleccionado satisfactoriamente.'));
                 }
-            }else{
-                $this->Medio->Users->link($medio, [$user]);
-                $user_medio->query()->update()
-                    ->set(['active' => 1])
-                    ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
-                    ->execute();
-                $this->Flash->success(__('El medio'.$medio->nombre.' ha sido seleccionado satisfactoriamente.'));
-            }
 
-            
+            }else{
+                $idmedio = $this->request->getData('id');
+                $medio = $this->Medio->get($idmedio);
+
+                $user_medio = TableRegistry::get('users_medio');
+                $usermedio = TableRegistry::get('users_medio')->find()->where(['medio_id' => $medio->id, 'user_id' => $user->id])->first();
+
+                if($usermedio){
+                    if($usermedio->active == 0){
+                        $user_medio->query()->update()
+                        ->set(['active' => 1])
+                        ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
+                        ->execute();
+                        $this->Flash->success(__('El medio '.$medio->nombre.' ha sido seleccionado satisfactoriamente.'));
+                    }else{
+                        $user_medio->query()->update()
+                        ->set(['active' => 0])
+                        ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
+                        ->execute();
+                        $this->Flash->success(__('El medio '.$medio->nombre.' ha sido desactivado satisfactoriamente.'));
+                    }
+                }else{
+                    $this->Medio->Users->link($medio, [$user]);
+                    $user_medio->query()->update()
+                        ->set(['active' => 1])
+                        ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
+                        ->execute();
+                    $this->Flash->success(__('El medio'.$medio->nombre.' ha sido seleccionado satisfactoriamente.'));
+                }
+            }
         }
         $this->set(compact('medios'));
         $this->set(compact('user'));
-    }
-
-    public function edit3()
-    {
-        $numero = $this->request->getData('phone');
-        $medios = $this->Medio->find('all')->where(['id' => 1]);
-        $users = TableRegistry::get('Users');
-        $user = TableRegistry::get('Users')->get($this->Auth->user('id'));
-        if ($this->request->is('post')) {
-            $idmedio = $this->request->getData('id');
-            $medio = $this->Medio->get($idmedio);
-
-            $query = $users->query()->update()
-            ->set(['phone' => $numero])
-            ->where(['id' => $this->Auth->user('id')])
-            ->execute();
-
-            $user_medio = TableRegistry::get('users_medio');
-            $usermedio = TableRegistry::get('users_medio')->find()->where(['medio_id' => $medio->id, 'user_id' => $user->id])->first();
-
-            if($usermedio){
-                if($usermedio->active == 0){
-                    $user_medio->query()->update()
-                    ->set(['active' => 1])
-                    ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
-                    ->execute();
-                    $this->Flash->success(__('El medio '.$medio->nombre.' ha sido seleccionado satisfactoriamente.'));
-                    return $this->redirect(['action' => 'edit2',$this->Auth->user('id')]);
-                }else{
-                    $user_medio->query()->update()
-                    ->set(['active' => 0])
-                    ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
-                    ->execute();
-                    $this->Flash->success(__('El medio '.$medio->nombre.' ha sido desactivado satisfactoriamente.'));
-                    return $this->redirect(['action' => 'edit2',$this->Auth->user('id')]);
-                }
-            }else{
-                $this->Medio->Users->link($medio, [$user]);
-                $user_medio->query()->update()
-                    ->set(['active' => 1])
-                    ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
-                    ->execute();
-                $this->Flash->success(__('El medio'.$medio->nombre.' ha sido seleccionado satisfactoriamente.'));
-                return $this->redirect(['action' => 'edit2',$this->Auth->user('id')]);
-            }
-
-            
-        }
-
-
-
-
-        $this->autoRender = false;
-        
     }
 
     /**

@@ -27,7 +27,8 @@ body{
 	min-height: 100px;
 }
 
-.navbar-header{
+.navbar-collapse.collapse{
+	padding-top: 2%;
 }
 
 .navbar-inverse{
@@ -37,9 +38,6 @@ body{
 	color: white;
 }
 
-.navbar-collapse.collapse{
-	display: initial!important;
-}
 
 .navbar-inverse .navbar-nav>li>a {
 	color: white;	
@@ -122,3 +120,4 @@ footer{
 	margin-top: 40px;
 	width: 100%;
 }
+

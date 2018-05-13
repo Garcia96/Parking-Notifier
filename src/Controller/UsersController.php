@@ -8,7 +8,6 @@ use Cake\Mailer\Email;
 use Cake\I18n\Time;
 use Cake\I18n\Date;
 use Cake\Database\Connection;
-require_once 'autoload.php';
 
 /**
  * Users Controller
@@ -154,23 +153,6 @@ class UsersController extends AppController
     public function home()
     {
 
-        $dataChart = [
-            'labels' => ["January", "February", "March", "April", "May", "June", "July"],
-            'datasets' => [
-                    [ 
-                        'label' => "My First dataset",
-                        'fillColor' => "rgba(220,220,220,0.2)",
-                        'strokeColor' => "rgba(220,220,220,1)",
-                        'pointColor' => "rgba(220,220,220,1)",
-                        'pointStrokeColor' => "#fff",
-                        'pointHighlightFill' => "#fff",
-                        'pointHighlightStroke' => "rgba(220,220,220,1)",
-                        'data' => [65, 59, 80, 81, 56, 55, 40]
-                    ]
-            ]
-        ];
-
-
         if($this->Auth->user('role') == 'staff'){
             return $this->redirect(['controller' => 'ingreso', 'action' => 'add']);
         }else{
@@ -184,7 +166,6 @@ class UsersController extends AppController
         $this->set('staff', $staff);
         $this->set('vehiculo', $vehiculo);
         $this->set('notify', $notify);
-        $this->set('dataChart', $dataChart);
         }
     }
 

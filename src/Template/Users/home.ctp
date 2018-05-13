@@ -4,26 +4,25 @@
 
 <?php if (isset($current_user['role']) && $current_user['role'] === 'sa'): ?>
 	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+	  google.charts.load('current', {packages: ['corechart']});
+	  google.charts.setOnLoadCallback(drawChart);
+	  
+	</script>
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-2">
-			<?php 
-			echo $this->Chartjs->createChart([
-			    'Chart' => [
-			        'id' => 'mygrafico',
-			        'type' => 'bar'
-			    ], 
-			    'Data' => $dataChart,
-			    'Options' => [
-			        'Bar' => [
-			            'scaleShowGridLines' => false
-			        ],
-			        'responsive' => true
-			    ]
-			]);
-			 ?>
+			<div class="page-header">
+				
+			</div>
 		</div>
 	</div>
-	<p>Editado desde la laptop, no lo puedo creer</p>
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			
+		</div>
+	</div>
+
 
 <?php endif ?>
 
@@ -115,7 +114,7 @@
 			<div class="table-responsive">
 			  <table class="table table-hover table-bordered table-striped">
 			  	<div class="page-header">
-			  		<h3>Mis notificaciones</h3>
+			  		<h3>Tus notificaciones</h3>
 			  	</div>
 			  	<thead>
 			    	<tr>

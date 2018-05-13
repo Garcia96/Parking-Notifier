@@ -23,7 +23,7 @@
 		<ul class="list-group">
 		  <li class="list-group-item"><p class="text-danger">Correo:</p><?= ' '.$user->email ?></li>
 		  <li class="list-group-item"><p class="text-danger">Rol:</p><?= ' '.$user->role ?></li>
-		  <li class="list-group-item"><p class="text-danger">Acctivo: </p><?= $user->active ? 'Si' : 'No' ?></li>
+		  <li class="list-group-item"><p class="text-danger">Activo: </p><?= $user->active ? 'Si' : 'No' ?></li>
 		  <li class="list-group-item"><p class="text-danger">Empresa:</p><?= ' '.$user->company->name ?></li>
 		</ul>
 	<div class="pull-right">

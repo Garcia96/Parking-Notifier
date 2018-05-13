@@ -1,12 +1,50 @@
 <title>
 	Parking Notifier - Admin - notificaciones
 </title>
-<div class="col-sm-8 col-sm-offset-2">
-	<div class="table-responsive">
-	  <table class="table table-hover table-bordered table-striped">
-	  	<div class="page-header">
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-2">
+		<div class="page-header">
+	  		
 	  		<h2>Notificaciones</h2>
 	  	</div>
+	</div>
+</div>
+<div class="row">
+<div class="col-sm-3 col-sm-offset-2">
+	<div class="">
+	  			<?php
+	  			echo $this->Form->create();
+	  			echo $this->Form->label('fecha', 'Fecha');
+	  			echo $this->Form->date('registered', [
+			        'minYear' => 2018,
+			        'maxYear' => date('Y'),
+			        'monthNames' => true,
+			        'empty' => [
+			            'year' => false,
+			            'month' => false
+			        ],
+			        'day' => false,
+			        'year' => [
+			            'class' => 'cool-years',
+			            'title' => 'Registration Year'
+			        ],
+			        'required'
+			    ]);
+			    echo $this->Form->button('Enviar', ['class' => 'btn btn-danger']);
+	  			echo $this->Form->end();
+		  		 ?>
+	</div>
+</div>
+
+<?php if (isset($notificacion)): ?>
+<?php $a = null;
+foreach ($notificacion as $noti) {
+	$a= count($noti->id);
+} ?>
+<?php if($a!=0): ?>
+<div class="col-sm-5">
+	<div class="table-responsive">
+	  <table class="table table-hover table-bordered table-striped">
 	  	<thead>
 	    	<tr>
 	    		<th> <?= $this->Paginator->sort('id',['label' => 'Id']) ?></th>
@@ -17,10 +55,12 @@
 	  	</thead>
 	  	<tbody>
 	  		<?php 
+	  		if(isset($user1)){
 	  		foreach ($user1 as $holi) {
-	  			$nombre1[]=$holi->name;
+	  			$nombre1[]=$holi->name." ".$holi->lastName;
 	  		}foreach ($user2 as $holi2) {
-	  			$nombre2[]=$holi2->name;
+	  			$nombre2[]=$holi2->name." ".$holi2->lastName;
+	  		}
 	  		}
 	  		?>
 	    	<?php $i =0; 
@@ -40,13 +80,14 @@
 	  	</tbody>
 	  </table>
 	  <div class="paginator">
-	  	<ul class="pagination">
-	  		<?= $this->Paginator->prev('< '. __('Anterior')) ?>
-	  		<?= $this->Paginator->numbers() ?>
-	  		<?= $this->Paginator->next(__('Siguiente') . ' >') ?>
-	  	</ul>
-	  	<p><?= $this->Paginator->counter('Página {{page}} de {{pages}}, mostrando {{current}} resultados de 
-     {{count}} total(es)') ?></p>
+	  	
 	  </div>
 	</div>
+</div>
+<?php else: ?>
+	<h4>No hay resultados de la busqueda</h4>
+<?php endif; ?>
+<?php else: ?>
+	<h4>Esperando por criterio de busqueda</h4>
+<?php endif; ?>
 </div>

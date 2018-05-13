@@ -11,7 +11,7 @@
 <?php else: ?>
 <?php $a = null; ?>
 <?php foreach ($users as $user): ?>
-<?php $a = count($user->created); ?>
+<?php $a += count($user->created); ?>
 <?php endforeach ?>
 <?php if ($a != 0): ?>
 

@@ -37,7 +37,7 @@ class NotificacionController extends AppController
             }
         }
         if(isset($user['role']) && $user['role'] === 'admin'){
-            if(in_array($this->request->action, ['index', 'view','viewadmin'])){
+            if(in_array($this->request->action, ['index', 'view','viewadmin','view2'])){
                 return true;
             }
         }
@@ -53,18 +53,30 @@ class NotificacionController extends AppController
      */
     public function index()
     {
-        $user =TableRegistry::get('users');
-        $notificacion = $this->paginate($this->Notificacion->find('all')->contain(['users'])->where(['company_id' => $this->Auth->user('company_id')]));
-        foreach ($notificacion as $noti) {
-            $user1[] = $user->get($noti->user_id_origen);
-            $user2[] = $user->get($noti->user_id_destino);
+        if ($this->request->is('post')) {
+            
+            $fecha = $this->request->getData('registered');
+            foreach ($fecha as $f) {
+                $mes = $f ;
+            }
+            $user =TableRegistry::get('users');
+            $notificacion = $this->Notificacion->find('all')->contain(['users'])->where(['company_id' => $this->Auth->user('company_id'), 'month(fecha)' => $mes]);
+
+            if(!empty($notificacion)){
+
+            foreach ($notificacion as $noti) {
+                $user1[] = $user->get($noti->user_id_origen);
+                $user2[] = $user->get($noti->user_id_destino);
+            }
+            $this->set(compact('notificacion'));
+            $this->set(compact('fecha'));
+            $this->set(compact('user1'));
+            $this->set(compact('user2'));
+            }
         }
-
-
-        $this->set(compact('notificacion'));
-        $this->set(compact('user1'));
-        $this->set(compact('user2'));
     }
+
+
 
     /**
      * View method
@@ -74,17 +86,19 @@ class NotificacionController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
-    {
-        $notificacion = $this->Notificacion->get($id, [
-            'contain' => 'evento'
-        ]);
+    {   
+        $notify = $this->Notificacion->get($id);
+        $evento = TableRegistry::get('evento')->find('all');
+        $evento->matching('Notificacion', function($q){
+            return $q;
+        })->where(['Notificacion.id' => $id]);
 
-        //$evento = TableRegistry::get('evento')->find('all')->contain('notificacion');
         $users = TableRegistry::get('Users');
-        $userOrigen = $users->get($notificacion->user_id_origen);
-        $userDestino = $users->get($notificacion->user_id_destino);
+        $userOrigen = $users->get($notify->user_id_origen);
+        $userDestino = $users->get($notify->user_id_destino);
 
-        $this->set('notificacion', $notificacion);
+        $this->set('notificacion', $notify);
+        $this->set('evento', $evento);
         $this->set('userOrigen', $userOrigen);
         $this->set('userDestino', $userDestino);
     }
@@ -171,8 +185,8 @@ class NotificacionController extends AppController
                         }else if($m->id == 3){
                             $sns = \Aws\Sns\SnsClient::factory(array(
                                 'credentials' => [
-                                    'key'    => 'AKIAIGSSCIACXX3BBKFA',
-                                    'secret' => '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',
+                                    'key'    => '',
+                                    'secret' => '',
                                 ],
                                 'region' => 'us-east-1',
                                 'version'  => 'latest',

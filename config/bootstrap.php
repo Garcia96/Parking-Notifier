@@ -217,6 +217,27 @@ if (Configure::read('debug')) {
 }
 
 Plugin::load('BootstrapUI');
-Plugin::load('ChartJs', ['bootstrap' => false, 'routes' => false]);
 Plugin::load('CakeJs');
+Plugin::load('WyriHaximus/TwigView', ['bootstrap' => true]);
+Plugin::load('CakePdf', ['bootstrap' => true, 'routes' => true]);
+
+Configure::write('CakePdf', [
+    'engine' => [
+        'className' => 'CakePdf.WkHtmlToPdf',
+        // 'binary' => '/usr/local/bin/wkhtmltopdf', // Si estas en Mac OS X / Linux
+        'binary' => 'C:\\xampp\\htdocs\\Parking_Notifier-1.0.4\\wkhtmltopdf\\bin\\wkhtmltopdf.exe',
+        'options' => [
+            'print-media-type' => false,
+            'outline' => true,
+            'dpi' => 96
+        ],
+    ],
+    'margin' => [
+            'bottom' => 15,
+            'left' => 30,
+            'right' => 20,
+            'top' => 25
+        ],
+    'download' => false
+]);
 Plugin::loadAll();

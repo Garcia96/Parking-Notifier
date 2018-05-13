@@ -36,8 +36,8 @@
         <h4 class="modal-title" id="myModalLabel">Verificar Numero Teléfono</h4>
       </div>
       <div class="modal-body">
-      	<?php echo $this->Form->create($medio, ['url' => '/medio/edit3']); ?>
-        <?php echo $this->Form->input('phone', ['label' => 'Teléfono', 'min' => '9', 'value' => $current_user['phone'], 'required']); ?>
+      	<?php echo $this->Form->create(); ?>
+        <?php echo $this->Form->input('phone', ['label' => 'Teléfono', 'value' => $current_user['phone'], 'required', 'onkeypress' => "return validaNumericos(event)"]); ?>
       </div>
       <div class="modal-footer">
       	<div class="col-xs-6">
@@ -51,3 +51,13 @@
     </div>
   </div>
 </div>
+
+
+<script>
+	function validaNumericos(event) {
+    if(event.charCode >= 48 && event.charCode <= 57){
+      return true;
+     }
+     return false;        
+	}
+</script>

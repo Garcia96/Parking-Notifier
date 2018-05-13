@@ -4,6 +4,7 @@
 <div class="row">
 	<div class="col-sm-8 col-sm-offset-2">
 		<div class="page-header">
+			<?php echo $this->Html->link('Volver', array('controller' => 'notificacion', 'action' => 'index'), ['class' => 'btn btn-danger pull-right']); ?>
 			<h2>Detalle de notificación</h2>
 		</div>
 		<div class=""></div>
@@ -45,7 +46,7 @@
 		<div class="col-sm-6">
 			<h4>Eventos</h4>
 			<div class="well">
-				<?php foreach ($notificacion->evento as $e): ?>
+				<?php foreach ($evento as $e): ?>
 					<ul class="list-group">
 					    <li class="list-group-item"><?= $e->descripcion ?></li>
 					</ul>

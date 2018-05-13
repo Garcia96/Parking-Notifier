@@ -47,14 +47,13 @@ use Cake\Routing\Route\DashedRoute;
 Router::defaultRouteClass(DashedRoute::class);
 
 Router::scope('/', function (RouteBuilder $routes) {
-    $routes->extensions('json','xml','csv', 'rss', 'pdf');
     $routes->connect('/', ['controller' => 'Users', 'action' => 'start']);
     $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
     $routes->fallbacks(DashedRoute::class);
 });
 
 Router::scope('/sa', function(RouteBuilder $routes){
-
+    $routes->extensions('pdf');
     $routes->connect('/admin', ['controller' => 'Users', 'action' => 'index']);
     $routes->connect('/admin/nuevo', ['controller' => 'Users', 'action' => 'add']);
     $routes->connect('/admin/detalle/*', ['controller' => 'Users', 'action' => 'view']);
@@ -76,7 +75,7 @@ Router::scope('/sa', function(RouteBuilder $routes){
 });
 
 Router::scope('/users', function (RouteBuilder $routes) {
-
+    $routes->extensions('pdf');
     $routes->connect('/', ['controller' => 'Users', 'action' => 'home']);
     $routes->connect('/detalle/*', ['controller' => 'Users', 'action' => 'view2']);
     $routes->connect('/nuevo', ['controller' => 'Users', 'action' => 'add2']);
@@ -95,16 +94,21 @@ Router::scope('/users', function (RouteBuilder $routes) {
 });
 
 Router::scope('/admin', function (RouteBuilder $routes) {
-
+    $routes->extensions('pdf');
     $routes->connect('/notificaciones', ['controller' => 'Notificacion', 'action' => 'index']);
     $routes->connect('/notificaciones/detalle/*', ['controller' => 'Notificacion', 'action' => 'view']);
     $routes->connect('/notificaciones/misnotificaciones/*', ['controller' => 'Notificacion', 'action' => 'viewadmin']);
     $routes->connect('/claves', ['controller' => 'Clave', 'action' => 'add']);
     $routes->connect('/nuevostaff', ['controller' => 'Users', 'action' => 'add3']);
+    $routes->connect('/reporte/usuarios', ['controller' => 'Reporte', 'action' => 'index']);
+    $routes->connect('/reporte/notificaciones', ['controller' => 'Reporte', 'action' => 'notificaciones']);
+    $routes->connect('/reporte/ingresos', ['controller' => 'Reporte', 'action' => 'ingresos']);
+    $routes->connect('/reporte/vehiculos', ['controller' => 'Reporte', 'action' => 'vehiculos']);
 });
 
 
 Router::scope('/staff', function (RouteBuilder $routes) {
+    $routes->extensions('pdf');
     $routes->connect('/ingresoysalida', ['controller' => 'ingreso', 'action' => 'add']);    
     $routes->connect('/notificaciones/nuevo', ['controller' => 'Notificacion', 'action' => 'add']);
     $routes->connect('/ingreso/historial', ['controller' => 'Ingreso', 'action' => 'index']);
