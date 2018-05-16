@@ -192,8 +192,8 @@ class NotificacionController extends AppController
                         }else if($m->id == 3){
                             $sns = \Aws\Sns\SnsClient::factory(array(
                                 'credentials' => [
-                                    'key'    => 'AKIAIK2HTAQHWS57G56Q',
-                                    'secret' => '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',
+                                    'key'    => '',
+                                    'secret' => '',
                                 ],
                                 'region' => 'us-east-1',
                                 'version'  => 'latest',
