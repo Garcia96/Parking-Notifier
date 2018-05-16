@@ -41,7 +41,7 @@ class IngresoController extends AppController
             }
         }
         if(isset($user['role']) && $user['role'] === 'staff'){
-            if(in_array($this->request->action, ['add','index'])){
+            if(in_array($this->request->action, ['view','add','index'])){
                 return true;
             }
         }

@@ -178,7 +178,7 @@ class MedioController extends AppController
                         ->set(['active' => 1])
                         ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
                         ->execute();
-                    $this->Flash->success(__('El medio'.$medio->nombre.' ha sido seleccionado satisfactoriamente.'));
+                    $this->Flash->success(__('El medio '.$medio->nombre.' ha sido seleccionado satisfactoriamente.'));
                 }
 
             }else{
@@ -208,7 +208,7 @@ class MedioController extends AppController
                         ->set(['active' => 1])
                         ->where(['user_id' => $user->id, 'medio_id' => $medio->id])
                         ->execute();
-                    $this->Flash->success(__('El medio'.$medio->nombre.' ha sido seleccionado satisfactoriamente.'));
+                    $this->Flash->success(__('El medio '.$medio->nombre.' ha sido seleccionado satisfactoriamente.'));
                 }
             }
         }

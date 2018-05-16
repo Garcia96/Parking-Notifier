@@ -3,26 +3,129 @@
 </title>
 
 <?php if (isset($current_user['role']) && $current_user['role'] === 'sa'): ?>
-	
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript">
-	  google.charts.load('current', {packages: ['corechart']});
-	  google.charts.setOnLoadCallback(drawChart);
-	  
-	</script>
+	<?php 
+		$i=$e=$p=$u=$LO=$AS=$VE=$BA=0;
+		foreach ($evento as $eve) {
+		    if($eve->id == 1){
+		    	$LO ++;
+		    }elseif($eve->id == 2){
+		    	$AS ++;
+		    }elseif($eve->id == 3) {
+		    	$VE ++;
+		    }elseif($eve->id == 4){
+		    	$BA ++;
+		    }
+		    $i++;
+		}
+
+		foreach ($cu as $c) {
+			if($c->company_id == 1){
+				$p ++;
+			}elseif($c->company_id == 2){
+				$u ++;
+			}
+			$e++;
+		}
+
+
+	 ?>
+	<div style="display: none;">
+		<?php 
+		echo $this->Form->input($LO, ['id' => 'LO', 'value' => $LO]);
+		echo $this->Form->input($AS, ['id' => 'AS', 'value' => $AS]);
+		echo $this->Form->input($VE, ['id' => 'VE', 'value' => $VE]);
+		echo $this->Form->input($BA, ['id' => 'BA', 'value' => $BA]);
+		echo $this->Form->input($i, ['id' => 'count', 'value' => $i]);
+		 ?>
+	</div>
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-2">
 			<div class="page-header">
-				
+				<h1>Lo Más Notificado</h1>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3 col-sm-offset-2">
+			<div class="panel panel-success">
+			  <div class="panel-heading">
+			    <h4>Llaves olvidadas</h4>
+			  </div>
+			  <div class="panel-heading">
+			    <h4>Alarma Sonando</h4>
+			  </div>
+			  <div class="panel-heading">
+			    <h4>Vehículo encendido</h4>
+			  </div>
+			  <div class="panel-heading">
+			    <h4>Baúl abierto</h4>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2 ">
+			<div class="panel panel-info">
+			  <div class="panel-heading">
+			    <h4><?php echo $LO ?></h4>
+			  </div>
+			  <div class="panel-heading">
+			    <h4><?php echo $AS ?></h4>
+			  </div>
+			  <div class="panel-heading">
+			    <h4><?php echo $VE ?></h4>
+			  </div>
+			  <div class="panel-heading">
+			    <h4><?php echo $BA ?></h4>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-5 col-sm-offset-2 ">
+			<div class="panel panel-primary">
+			  <div class="panel-heading">
+			    <h4>Total eventos notificados: <?php echo $i ?> hasta: <?php echo date('Y-m-d') ?></h4>
+			  </div>
 			</div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-2">
-			
+			<div class="page-header">
+				<h1>Usuarios por empresa</h1>
+			</div>
 		</div>
 	</div>
-
+	<div class="row">
+		<div class="col-sm-3 col-sm-offset-2">
+			<div class="panel panel-success">
+			  <div class="panel-heading">
+			    <h4>Parking Notifier</h4>
+			  </div>
+			</div>
+			<div class="panel panel-info">
+			  <div class="panel-heading">
+			    <h4>Universidad Distrital Franciso Jose de Caldas</h4>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-2 ">
+			<div class="panel panel-success">
+			  <div class="panel-heading">
+			    <h4><?php echo $p ?></h4>
+			  </div>
+			</div>
+			<div class="panel panel-info">
+			  <div class="panel-heading">
+			    <h4><?php echo $u ?></h4>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-5 col-sm-offset-2 ">
+			<div class="panel panel-primary">
+			  <div class="panel-heading">
+			    <h4>Total usuarios: <?php echo $e ?> hasta: <?php echo date('Y-m-d') ?></h4>
+			  </div>
+			</div>
+		</div>
+	</div>
 
 <?php endif ?>
 

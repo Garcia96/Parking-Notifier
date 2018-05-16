@@ -152,6 +152,12 @@ class UsersController extends AppController
     */
     public function home()
     {
+        $evento = TableRegistry::get('evento')->find('all');
+        $evento->matching('Notificacion', function($q){
+            return $q;
+        });
+        
+        $cu = $this->Users->find('all')->where(['role !=' => 'sa']);
 
         if($this->Auth->user('role') == 'staff'){
             return $this->redirect(['controller' => 'ingreso', 'action' => 'add']);
@@ -163,9 +169,11 @@ class UsersController extends AppController
         $notify = $this->Users->find('all')->where(['id' => $this->Auth->user('id')])->contain(['notificacion']);
 
         $this->set('users', $users);
+        $this->set('cu', $cu);
         $this->set('staff', $staff);
         $this->set('vehiculo', $vehiculo);
         $this->set('notify', $notify);
+        $this->set('evento', $evento);
         }
     }
 
@@ -326,6 +334,8 @@ class UsersController extends AppController
     */
     public function add3()
     {
+        $now = new Time();
+        $now->timezone = 'America/Bogota';
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -342,7 +352,7 @@ class UsersController extends AppController
                     ->subject('Registro Exitoso')
                     ->template('staff')
                     ->emailFormat('html')
-                    ->viewVars(['value' => $clave,'user' => $user->id, 'nombre' => $user->name, 'empresa' => $cname->name,'fecha' => $user->created])
+                    ->viewVars(['value' => $clave,'user' => $user->id, 'nombre' => $user->name, 'empresa' => $cname->name,'fecha' => $now])
                     ->send();
 
                 $this->Flash->success(__('El usuario ha sido creado.'));

@@ -14,17 +14,17 @@ class VehiculoController extends AppController
 
     public function isAuthorized($user){
         if(isset($user['role']) && $user['role'] === 'user'){
-            if(in_array($this->request->action, ['index','view','edit', 'delete', 'add','firstadd'])){
+            if(in_array($this->request->action, ['index','view','firstadd'])){
                 return true;
             }
         }
         if(isset($user['role']) && $user['role'] === 'admin'){
-            if(in_array($this->request->action, ['index','view', 'add', 'delete','edit'])){
+            if(in_array($this->request->action, ['index','view', 'add', 'delete','edit','firstadd'])){
                 return true;
             }
         }
         if(isset($user['role']) && $user['role'] === 'staff'){
-            if(in_array($this->request->action, ['index','view', 'add', 'delete','edit'])){
+            if(in_array($this->request->action, ['index','view', 'add','firstadd'])){
                 return true;
             }
         }
@@ -65,19 +65,32 @@ class VehiculoController extends AppController
      */
     public function add()
     {   
-        $vehiculo = $this->Vehiculo->newEntity();
-        if ($this->request->is('post')) {
-            $vehiculo = $this->Vehiculo->patchEntity($vehiculo, $this->request->getData());
-            $vehiculo->placa = strtoupper($vehiculo->placa);
-            $vehiculo->user_id = $this->Auth->user('id');
-            if ($this->Vehiculo->save($vehiculo)) {
-                $this->Flash->success(__('El vehiculo ha sido guardado.'));
+        $v = $this->Vehiculo->find('all')->where(['user_id' => $this->Auth->user('id')]);
 
-                return $this->redirect(['action' => 'view', $this->Auth->user('id')]);
-            }
-            $this->Flash->error(__('El vehiculo no ha podido ser creado. Por favor intente nuevamente.'));
+        $cont = null;
+        foreach ($v as $key) {
+            $cont += count($key->id);
         }
-        $this->set(compact('vehiculo'));
+        if ($cont == null) {
+            $vehiculo = $this->Vehiculo->newEntity();
+            if ($this->request->is('post')) {
+                $vehiculo = $this->Vehiculo->patchEntity($vehiculo, $this->request->getData());
+                $vehiculo->placa = strtoupper($vehiculo->placa);
+                $vehiculo->user_id = $this->Auth->user('id');
+                if ($this->Vehiculo->save($vehiculo)) {
+                    $this->Flash->success(__('El vehiculo ha sido guardado.'));
+
+                    return $this->redirect(['action' => 'view', $this->Auth->user('id')]);
+                }
+                $this->Flash->error(__('El vehiculo no ha podido ser creado. Por favor intente nuevamente.'));
+            }
+            $this->set(compact('vehiculo'));
+        }else{
+            $this->Flash->success(__('Ya tiene este vehículo registrado, comuniquese con el administrador del sitio para modificarlo.'));
+
+            return $this->redirect(['action' => 'view', $this->Auth->user('id')]);
+        }
+        
     }
 
     /**

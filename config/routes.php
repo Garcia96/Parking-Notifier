@@ -111,6 +111,7 @@ Router::scope('/staff', function (RouteBuilder $routes) {
     $routes->extensions('pdf');
     $routes->connect('/ingresoysalida', ['controller' => 'ingreso', 'action' => 'add']);    
     $routes->connect('/notificaciones/nuevo', ['controller' => 'Notificacion', 'action' => 'add']);
+    $routes->connect('/notificaciones/misnotificaciones/*', ['controller' => 'Notificacion', 'action' => 'viewstaff']);
     $routes->connect('/ingreso/historial', ['controller' => 'Ingreso', 'action' => 'index']);
 });
 /**

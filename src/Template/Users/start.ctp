@@ -11,10 +11,10 @@
 			</div> 
 			<div>
 				<h3 align="justify" style="vertical-align: middle;">
-				Con parking notifier podrás notificar a tus usuarios cuando se presente algún inconveniente con el vehículo, también se llevara el registro de ingresos y salidas en el parqueadero además llevar el registro de los usuarios que están inscritos en tu empresa y sea usuarios el sistema de parqueadero tales como <br>
-				-Adminsitrador <br> 
-				-Staff  <br>
-				-Conductor <br>
+				Con nuestro sistema de notificación podrás infomar a los usuarios del parqueadero de alguna eventualidad con el vehículo.<br><br> 
+				También se llevara el registro de ingresos y salidas, permitiendo tener un control del acceso diario al establecimiento o institución.<br><br>
+				Solamente teniendo un tarjeta de identificación y un código de barras para cada usuario ya estaría listo para esar Parking Notifier<br><br>
+				Es un sistema bastante intuitivo, por lo que no habrá problemas con su uso
 				</h3>
 			</div>
 		</div>

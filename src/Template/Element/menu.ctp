@@ -30,8 +30,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vehiculo<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><?= $this->Html->link('Mis Vehiculos', array('controller' => 'Vehiculo', 'action' => 'view', $current_user['id'])); ?></li>
-                <li><?= $this->Html->link('Nuevo Vehiculo', array('controller' => 'Vehiculo', 'action' => 'add')); ?></li>
+                <li><?= $this->Html->link('Mi Vehiculo', array('controller' => 'Vehiculo', 'action' => 'view', $current_user['id'])); ?></li> 
                 <li><?= $this->Html->link('Ingresos', array('controller' => 'Ingreso', 'action' => 'view', $current_user['id'])); ?></li>
               </ul>
             </li>
@@ -63,10 +62,11 @@
           <?php if ($current_user['role'] == 'admin'): ?>  <!-- menu para admin -->
             <li><?= $this->Html->link('Inicio', array('controller' => 'Users', 'action' => 'home')); ?></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vehiculos <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vehiculo<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><?= $this->Html->link('Mis Vehiculos', array('controller' => 'Vehiculo', 'action' => 'view',$current_user['id'])); ?></li>
+                <li><?= $this->Html->link('Mi Vehiculo', array('controller' => 'Vehiculo', 'action' => 'view', $current_user['id'])); ?></li>
                 <li><?= $this->Html->link('Nuevo Vehiculo', array('controller' => 'Vehiculo', 'action' => 'add')); ?></li>
+                <li><?= $this->Html->link('Ingresos', array('controller' => 'Ingreso', 'action' => 'view', $current_user['id'])); ?></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -105,7 +105,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vehiculo<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><?= $this->Html->link('Mis Vehiculos', array('controller' => 'Vehiculo', 'action' => 'view', $current_user['id'])); ?></li>
+                <li><?= $this->Html->link('Mi Vehiculo', array('controller' => 'Vehiculo', 'action' => 'view', $current_user['id'])); ?></li> 
                 <li><?= $this->Html->link('Nuevo Vehiculo', array('controller' => 'Vehiculo', 'action' => 'add')); ?></li>
                 <li><?= $this->Html->link('Ingresos', array('controller' => 'Ingreso', 'action' => 'view', $current_user['id'])); ?></li>
               </ul>
@@ -117,17 +117,12 @@
                 <li><?= $this->Html->link('Editar Medios ', array('controller' => 'Medio', 'action' => 'edit2', $current_user['id'])); ?>
               </ul>
             </li>
+            <li><?= $this->Html->link('Notificaciones', array('controller' => 'Notificacion', 'action' => 'viewstaff', $current_user['id'])); ?></li>
           <?php endif; ?>
 
           <?php if ($current_user['role'] == 'user'): ?>  <!-- menu para usuario -->
             <li><?= $this->Html->link('Inicio', array('controller' => 'Users', 'action' => 'home')); ?></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vehiculos <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><?= $this->Html->link('Mis Vehiculos', array('controller' => 'Vehiculo', 'action' => 'view', $current_user['id'])); ?></li>
-                <li><?= $this->Html->link('Nuevo Vehiculo', array('controller' => 'Vehiculo', 'action' => 'add')); ?></li>
-              </ul>
-            </li>
+            <li><?= $this->Html->link('Mi Vehiculo', array('controller' => 'Vehiculo', 'action' => 'view', $current_user['id'])); ?></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Medios de envio<span class="caret"></span></a>
               <ul class="dropdown-menu">

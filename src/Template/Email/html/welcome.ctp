@@ -4,7 +4,7 @@
 			<h2>Registro Exitoso</h2>
 		</div>
 		<div style="text-align: justify;">
-			<h3 align="left">Hola <?php echo $name ?></h3>
+			<h3 align="left">Hola <?php echo $nombre ?></h3>
 			<p style="" align="justify"> El registro en el servicio de Parking Notifier asociado a la empresa <?php echo $empresa ?> ha sido exitoso el <?php echo $fecha ?>. Tu perfil es de Administrador<br>
 				Ahora solo debes inscribir tus vehiculos y escoger los medios de por los cuales quieres ser notificado para que el servicio quede activado y poder avisarte de cualquier imprevisto con tu medio de transporte.<br>
 				Si ya has realizado estas acciones, ya estaria todo listo. te avisaremos de cualquier problema.

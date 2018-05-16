@@ -32,7 +32,7 @@ class NotificacionController extends AppController
         }
 
         if(isset($user['role']) && $user['role'] === 'staff'){
-            if(in_array($this->request->action, ['add'])){
+            if(in_array($this->request->action, ['add','viewstaff','view2'])){
                 return true;
             }
         }
@@ -132,6 +132,13 @@ class NotificacionController extends AppController
         $this->set('notify', $notify);
     }
 
+    public function viewstaff()
+    {
+        $user = TableRegistry::get('users');
+        $notify = $user->find('all')->where(['id' => $this->Auth->user('id')])->contain(['notificacion']);
+        $this->set('notify', $notify);
+    }
+
     /**
      * Add method
      *
@@ -185,16 +192,15 @@ class NotificacionController extends AppController
                         }else if($m->id == 3){
                             $sns = \Aws\Sns\SnsClient::factory(array(
                                 'credentials' => [
-                                    'key'    => '',
-                                    'secret' => '',
+                                    'key'    => 'AKIAIK2HTAQHWS57G56Q',
+                                    'secret' => '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',
                                 ],
                                 'region' => 'us-east-1',
                                 'version'  => 'latest',
                             ));
                             $nmsm=explode(" ", $user->name);
                             $result = $sns->publish([
-                                'Message' => 'ParkingNotifier Hola '.$nmsm[0].' se ha presentado un inconveniente con su vehículo acercarse al parqueadero Gracias
-                                ', // REQUIRED
+                                'Message' => 'ParkingNotifier Hola '.$nmsm[0].' se ha presentado un inconveniente con su vehículo acercarse al parqueadero Gracias', // REQUIRED
                                 'MessageAttributes' => [
                                     'AWS.SNS.SMS.SenderID' => [
                                         'DataType' => 'String', // REQUIRED
